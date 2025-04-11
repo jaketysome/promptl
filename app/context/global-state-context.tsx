@@ -63,6 +63,7 @@ export const GlobalStateContextProvider = ({
     if (response.success) {
       setPrompt(response.body.prompt);
       setImgUrl(response.body.imgUrl);
+      console.log("IMG URL: ", response.body.imgUrl);
     } else {
       console.error("Error generating prompt and imgUrl");
     }

@@ -1,3 +1,4 @@
+import { generatePromptAndImage } from "@/lib/openai";
 import { GlobalStateContextProvider } from "../context/global-state-context";
 import Clue from "./clue";
 import GeneratedImage from "./generated-img";
@@ -5,7 +6,7 @@ import GuessInput from "./guess-input";
 import GuessList from "./guess-list";
 import WordCounter from "./word-counter";
 
-const TEST_RESPONSE = {
+const _TEST_RESPONSE = {
   success: true,
   body: {
     prompt: '"A spaceship landing on a vibrant alien planet."',
@@ -14,8 +15,8 @@ const TEST_RESPONSE = {
   },
 };
 
-function GameContainer() {
-  const response = TEST_RESPONSE;
+async function GameContainer() {
+  const response = await generatePromptAndImage();
 
   if (!response.success) return null;
 
