@@ -3,13 +3,13 @@
 import { useContext, createContext, useState, useEffect } from "react";
 
 interface GlobalStateContext {
-  prompt: string | undefined;
-  imgUrl: string | undefined;
+  prompt: string;
+  imgUrl: string;
 }
 
 const GlobalStateContext = createContext<GlobalStateContext>({
-  prompt: undefined,
-  imgUrl: undefined,
+  prompt: "",
+  imgUrl: "",
 });
 
 export const GlobalStateContextProvider = ({
@@ -19,13 +19,15 @@ export const GlobalStateContextProvider = ({
   response: OpenAIResponse<{ body: ResponseBody }>;
   children: React.ReactNode;
 }) => {
-  const [prompt, setPrompt] = useState<string | undefined>(undefined);
-  const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
+  const [prompt, setPrompt] = useState<string>("");
+  const [imgUrl, setImgUrl] = useState<string>("");
 
   useEffect(() => {
     if (response.success) {
       setPrompt(response.body.prompt);
       setImgUrl(response.body.imgUrl);
+    } else {
+      console.error("Error generating prompt and imgUrl");
     }
   }, []);
 
