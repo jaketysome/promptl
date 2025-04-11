@@ -13,3 +13,13 @@ type ErrorResponse = {
 }
 
 type OpenAIResponse<T> = SuccessResponse<T> | ErrorResponse;
+
+type Guess = {
+  id: number;
+  body?: string;
+}
+
+type WordComparison = {
+  text: string;
+  status: string;
+}
