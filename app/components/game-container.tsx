@@ -1,4 +1,5 @@
 import { GlobalStateContextProvider } from "../context/global-state-context";
+import Clue from "./clue";
 import GeneratedImage from "./generated-img";
 import GuessInput from "./guess-input";
 import GuessList from "./guess-list";
@@ -24,6 +25,7 @@ function GameContainer() {
     <div className='flex flex-col w-full max-w-md h-full items-start justify-center border-1 border-slate-400'>
       <GeneratedImage {...{ imgUrl, prompt }} />
       <GlobalStateContextProvider response={response}>
+        <Clue />
         <GuessList />
         <WordCounter />
         <GuessInput />
