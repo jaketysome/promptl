@@ -7,6 +7,7 @@ import {
   useEffect,
   Dispatch,
   SetStateAction,
+  useCallback,
 } from "react";
 
 interface GlobalStateContext {
@@ -58,7 +59,7 @@ export const GlobalStateContextProvider = ({
   const [revealClue, setRevealClue] = useState(false);
   const [wordCount, setWordCount] = useState(0);
 
-  useEffect(() => {
+  const handleResponse = useCallback(() => {
     if (response.success) {
       setPrompt(response.body.prompt);
       setImgUrl(response.body.imgUrl);
@@ -66,6 +67,10 @@ export const GlobalStateContextProvider = ({
       console.error("Error generating prompt and imgUrl");
     }
   }, [response]);
+
+  useEffect(() => {
+    handleResponse();
+  }, [handleResponse]);
 
   return (
     <GlobalStateContext.Provider

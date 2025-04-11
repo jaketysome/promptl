@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
   const [comparisonResults, setComparisonResults] = useState<_WordComparison[]>(
     []
   );
 
-  const checkGuess = (guess: _Guess, prompt: string) => {
+  const checkGuess = useCallback(() => {
     if (!guess.body) {
       return;
     }
@@ -21,6 +21,7 @@ const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
 
       return word.toLowerCase();
     });
+
     const formattedGuessWords = guessWords.map((word) => {
       if (word[word.length - 1] === ".") {
         word = word.slice(0, -1);
@@ -47,11 +48,11 @@ const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
     });
 
     setComparisonResults(comparisonResults);
-  };
+  }, [guess.body, prompt]);
 
   useEffect(() => {
-    checkGuess(guess, prompt);
-  }, [guess, prompt]);
+    checkGuess();
+  }, [checkGuess]);
 
   return (
     <div className='flex items-center justify-center w-full h-8 my-1 py-2 px-2 text-xs bg-slate-700'>
