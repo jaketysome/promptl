@@ -2,12 +2,21 @@ import { generatePromptAndImage } from "@/lib/openai";
 import { GlobalStateContextProvider } from "./context/global-state-context";
 import GameContainer from "./components/game-container";
 
+const TEST_RESPONSE = {
+  success: true,
+  body: {
+    prompt: '"A spaceship landing on a vibrant alien planet."',
+    imgUrl:
+      "https://oaidalleapiprodscus.blob.core.windows.net/private/org-rVsgDY5zjFseSqZ7HmQ7ldmu/user-K7D0m5jE4sTUxVLtOW6rlEwH/img-3u0RXITopuJjMZSFlnfeyh6C.png?st=2025-04-11T09%3A29%3A20Z&se=2025-04-11T11%3A29%3A20Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-10T20%3A40%3A16Z&ske=2025-04-11T20%3A40%3A16Z&sks=b&skv=2024-08-04&sig=xWXmHTQZlvOVhh/gnTcf8cOyxJ9LUVWXZ1XKr8xaLXg%3D",
+  },
+};
+
 export default async function Home() {
-  const response = await generatePromptAndImage();
+  const response = TEST_RESPONSE;
 
   return (
     <GlobalStateContextProvider response={response}>
-      <main>
+      <main className='flex min-h-screen flex-col items-center justify-start'>
         <GameContainer />
       </main>
     </GlobalStateContextProvider>
