@@ -2,6 +2,8 @@
 
 **Promptl** is an AI image prompt guessing game inspired by the mechanics of Wordle. Each round, an AI-generated image is shown, and your task is to guess the original prompt that was used to create it. You get 6 attempts, word-by-word feedback, and a clue after 3 tries. Think you can outsmart the AI?
 
+Play now: https://promptl-nine.vercel.app/
+
 ---
 
 ## 🕹 Gameplay
