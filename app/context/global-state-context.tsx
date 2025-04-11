@@ -6,12 +6,14 @@ interface GlobalStateContext {
   prompt: string;
   imgUrl: string;
   guessList: Guess[];
+  wordCount: number;
 }
 
 const GlobalStateContext = createContext<GlobalStateContext>({
   prompt: "",
   imgUrl: "",
   guessList: [],
+  wordCount: 0,
 });
 
 export const GlobalStateContextProvider = ({
@@ -31,6 +33,7 @@ export const GlobalStateContextProvider = ({
     { id: 2 },
     { id: 1 },
   ]);
+  const [wordCount, setWordCount] = useState(0);
 
   useEffect(() => {
     if (response.success) {
@@ -42,7 +45,9 @@ export const GlobalStateContextProvider = ({
   }, []);
 
   return (
-    <GlobalStateContext.Provider value={{ prompt, imgUrl, guessList }}>
+    <GlobalStateContext.Provider
+      value={{ prompt, imgUrl, guessList, wordCount }}
+    >
       {children}
     </GlobalStateContext.Provider>
   );

@@ -1,6 +1,7 @@
 import { GlobalStateContextProvider } from "../context/global-state-context";
 import GeneratedImage from "./generated-img";
 import GuessList from "./guess-list";
+import WordCounter from "./word-counter";
 
 const TEST_RESPONSE = {
   success: true,
@@ -23,6 +24,7 @@ function GameContainer() {
       <GeneratedImage {...{ imgUrl, prompt }} />
       <GlobalStateContextProvider response={response}>
         <GuessList />
+        <WordCounter />
       </GlobalStateContextProvider>
     </div>
   );
