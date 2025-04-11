@@ -6,7 +6,7 @@ const IMG_MODEL = "dall-e-2";
 const IMG_SIZE = "512x512";
 const STARTING_PROMPT = "Generate a random image prompt for Dall-E. The prompt should be a short sentence describing an image. For example, 'a painting of a cat sitting on a chair' or 'a photo of a baby panda'. The prompt should be no longer than 10 words."
 
-export async function generatePromptAndImage(): Promise<OpenAIResponse<{ body: ResponseBody }>> {
+export async function generatePromptAndImage(): Promise<_OpenAIResponse> {
   const prompt = await generateImagePrompt();
 
   const response = await client.images.generate({

@@ -3,7 +3,7 @@ type ResponseBody = {
   imgUrl: string;
 }
 
-type SuccessResponse<T> = {
+type SuccessResponse = {
   success: true;
   body: ResponseBody;
 }
@@ -12,14 +12,14 @@ type ErrorResponse = {
   success: false;
 }
 
-type OpenAIResponse<T> = SuccessResponse<T> | ErrorResponse;
+type _OpenAIResponse = SuccessResponse | ErrorResponse;
 
-type Guess = {
+type _Guess = {
   id: number;
   body?: string;
 }
 
-type WordComparison = {
+type _WordComparison = {
   text: string;
   status: string;
 }

@@ -16,7 +16,7 @@ const Clue = () => {
     if (word.length < 6) {
       return word
         .split("")
-        .map((letter) => "_")
+        .map(() => "_")
         .join("");
     } else {
       return (
@@ -24,7 +24,7 @@ const Clue = () => {
         word
           .slice(1, -1)
           .split("")
-          .map((letter) => "_")
+          .map(() => "_")
           .join("")
       );
     }

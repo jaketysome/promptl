@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-const Guess = ({ guess, prompt }: { guess: Guess; prompt: string }) => {
-  const [comparisonResults, setComparisonResults] = useState<WordComparison[]>(
+const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
+  const [comparisonResults, setComparisonResults] = useState<_WordComparison[]>(
     []
   );
 
-  const checkGuess = (guess: Guess, prompt: string) => {
+  const checkGuess = (guess: _Guess, prompt: string) => {
     if (!guess.body) {
       return;
     }
@@ -51,7 +51,7 @@ const Guess = ({ guess, prompt }: { guess: Guess; prompt: string }) => {
 
   useEffect(() => {
     checkGuess(guess, prompt);
-  }, [guess.body]);
+  }, [guess, prompt]);
 
   return (
     <div className='flex items-center justify-center w-full h-8 my-1 py-2 px-2 text-xs bg-slate-700'>

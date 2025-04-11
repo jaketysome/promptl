@@ -12,8 +12,8 @@ import {
 interface GlobalStateContext {
   prompt: string;
   imgUrl: string;
-  guessList: Guess[];
-  setGuessList: Dispatch<SetStateAction<Guess[]>>;
+  guessList: _Guess[];
+  setGuessList: Dispatch<SetStateAction<_Guess[]>>;
   guessCount: number;
   setGuessCount: Dispatch<SetStateAction<number>>;
   revealClue: boolean;
@@ -48,7 +48,7 @@ export const GlobalStateContextProvider = ({
   response,
   children,
 }: {
-  response: OpenAIResponse<{ body: ResponseBody }>;
+  response: _OpenAIResponse;
   children: React.ReactNode;
 }) => {
   const [prompt, setPrompt] = useState("");
@@ -65,7 +65,7 @@ export const GlobalStateContextProvider = ({
     } else {
       console.error("Error generating prompt and imgUrl");
     }
-  }, []);
+  }, [response]);
 
   return (
     <GlobalStateContext.Provider
