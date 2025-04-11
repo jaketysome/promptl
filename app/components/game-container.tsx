@@ -1,16 +1,9 @@
-"use client";
+import GeneratedImage from "./generated-img";
 
-import { useGlobalStateContext } from "../context/global-state-context";
-
-function GameContainer() {
-  const { prompt, imgUrl } = useGlobalStateContext();
-
-  console.log(prompt);
-  console.log(imgUrl);
-
+function GameContainer({ imgUrl, prompt }: { imgUrl: string; prompt: string }) {
   return (
     <div className='flex flex-col w-full max-w-md h-full items-start justify-center border-1'>
-      GAME CONTAINER
+      <GeneratedImage {...{ imgUrl, prompt }} />
     </div>
   );
 }

@@ -1,5 +1,3 @@
-import { generatePromptAndImage } from "@/lib/openai";
-import { GlobalStateContextProvider } from "./context/global-state-context";
 import GameContainer from "./components/game-container";
 
 const TEST_RESPONSE = {
@@ -15,10 +13,11 @@ export default async function Home() {
   const response = TEST_RESPONSE;
 
   return (
-    <GlobalStateContextProvider response={response}>
-      <main className='flex min-h-screen flex-col items-center justify-start'>
-        <GameContainer />
-      </main>
-    </GlobalStateContextProvider>
+    <main className='flex min-h-screen flex-col items-center justify-start'>
+      <GameContainer
+        imgUrl={response.body.imgUrl}
+        prompt={response.body.prompt}
+      />
+    </main>
   );
 }
