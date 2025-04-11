@@ -5,11 +5,13 @@ import { useContext, createContext, useState, useEffect } from "react";
 interface GlobalStateContext {
   prompt: string;
   imgUrl: string;
+  guessList: Guess[];
 }
 
 const GlobalStateContext = createContext<GlobalStateContext>({
   prompt: "",
   imgUrl: "",
+  guessList: [],
 });
 
 export const GlobalStateContextProvider = ({
@@ -21,6 +23,14 @@ export const GlobalStateContextProvider = ({
 }) => {
   const [prompt, setPrompt] = useState<string>("");
   const [imgUrl, setImgUrl] = useState<string>("");
+  const [guessList, setGuessList] = useState<Guess[]>([
+    { id: 6 },
+    { id: 5 },
+    { id: 4 },
+    { id: 3 },
+    { id: 2 },
+    { id: 1 },
+  ]);
 
   useEffect(() => {
     if (response.success) {
@@ -32,7 +42,7 @@ export const GlobalStateContextProvider = ({
   }, []);
 
   return (
-    <GlobalStateContext.Provider value={{ prompt, imgUrl }}>
+    <GlobalStateContext.Provider value={{ prompt, imgUrl, guessList }}>
       {children}
     </GlobalStateContext.Provider>
   );
