@@ -1,4 +1,4 @@
-import { compareWords, countWords, extractWords, removePunctuation } from "@/lib/utils";
+import { formatGuessWords, compareWords, countWords, extractWords, removePunctuation } from "@/lib/utils";
 
 describe('countWords', () => {
     it('should return 0 if passed an empty string', () => {
@@ -86,24 +86,6 @@ describe('extractWords', () => {
     });
 });
 
-describe('removePunctuation', () => {
-    it('should return an empty string if passed an empty string', () => {
-        const result = removePunctuation("");
-
-        expect(result).toEqual("");
-    });
-
-    it('should remove all punctuation from a string', () => {
-        const result1 = removePunctuation("BANANAS!@£$%^&*(){}[]:;'|<>,.?/`~");
-        const result2 = removePunctuation("I!@ £$%LO^&VE*(){ }[]:;BANA'|<>NAS,.?/`~");
-        const result3 = removePunctuation("!@A£$%P^&*(P){}[]L:;'|E<>,.?/`~S");
-
-        expect(result1).toEqual("BANANAS");
-        expect(result2).toEqual("I LOVE BANANAS");
-        expect(result3).toEqual("APPLES");
-    });
-});
-
 describe('compareWords', () => {
     const promptWords = ["a", "spaceship", "landing", "on", "a", "vibrant", "alien", "planet"];
     const guessWords1 = ["some", "giant", "bees", "flying", "with", "scary", "green", "butterflies"];
@@ -165,5 +147,53 @@ describe('compareWords', () => {
         expect(result2[4].status).toBe("partial");
         expect(result2[7].text).toBe("planet");
         expect(result2[7].status).toBe("correct");
+    });
+});
+
+describe('removePunctuation', () => {
+    it('should return an empty string if passed an empty string', () => {
+        const result = removePunctuation("");
+
+        expect(result).toEqual("");
+    });
+
+    it('should remove all punctuation from a string', () => {
+        const result1 = removePunctuation("BANANAS!@£$%^&*(){}[]:;'|<>,.?/`~");
+        const result2 = removePunctuation("I!@ £$%LO^&VE*(){ }[]:;BANA'|<>NAS,.?/`~");
+        const result3 = removePunctuation("!@A£$%P^&*(P){}[]L:;'|E<>,.?/`~S");
+
+        expect(result1).toEqual("BANANAS");
+        expect(result2).toEqual("I LOVE BANANAS");
+        expect(result3).toEqual("APPLES");
+    });
+});
+
+describe('formatGuessWords', () => {
+    it('should return an empty string if passed an empty string', () => {
+        const guessResults = [{text: "", status: "incorrect"}];
+
+        const result = formatGuessWords(guessResults[0].text, guessResults.length, 0);
+
+        expect(result).toBe("");
+    });
+
+    it('should capitalise a word with an index of 0', () => {
+        const guessResults = [{text: "hello", status: "incorrect"}, {text: "sailor", status: "incorrect"}];
+
+        const result1 = formatGuessWords(guessResults[0].text, guessResults.length, 0);
+        const result2 = formatGuessWords(guessResults[1].text, guessResults.length, 1);
+
+        expect(result1).toBe("Hello ");
+        expect(result2).toBe("sailor");
+    });
+
+    it('should add spaces after non-ending words', () => {
+        const guessResults = [{text: "hello", status: "incorrect"}, {text: "sailor", status: "incorrect"}];
+
+        const result1 = formatGuessWords(guessResults[0].text, guessResults.length, 0);
+        const result2 = formatGuessWords(guessResults[1].text, guessResults.length, 1);
+
+        expect(result1).toBe("Hello ");
+        expect(result2).toBe("sailor");
     });
 });

@@ -18,12 +18,6 @@ export function extractWords(str: string): string[] {
   return words.map((word) => removePunctuation(word.toLowerCase()));
 }
 
-export function removePunctuation(str: string) {
-  return str.split('').filter(char => {
-      return /[a-zA-Z0-9 ]/.test(char);
-  }).join('');
-}
-
 export function compareWords(guessWords: string[], promptWords: string[]): _WordComparison[] {
   if (guessWords.length < 1 || promptWords.length < 1 ) return [];
 
@@ -38,4 +32,22 @@ export function compareWords(guessWords: string[], promptWords: string[]): _Word
       return {text: guessWord, status: "incorrect"};
     }
   });
+}
+
+export function removePunctuation(str: string) {
+  return str.split('').filter(char => {
+      return /[a-zA-Z0-9 ]/.test(char);
+  }).join('');
+}
+
+export function formatGuessWords(word: string, guessLength: number, index: number) {
+  if (!word) return "";
+
+  const spacing = index === guessLength - 1 ? "" : "\u00A0";
+
+  if (index === 0) {
+    return `${word[0].toUpperCase() + word.slice(1)}${spacing}`
+  } else {
+    return `${word}${spacing}`;
+  };
 }

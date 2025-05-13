@@ -1,6 +1,6 @@
 "use client";
 
-import { compareWords, extractWords } from "@/lib/utils";
+import { compareWords, extractWords, formatGuessWords } from "@/lib/utils";
 import { useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 
@@ -11,14 +11,10 @@ const renderGuessResults = (guessResults: _WordComparison[]) => {
       className={clsx(
         result.status === "correct" && "text-green-500 font-bold",
         result.status === "partial" && "text-yellow-500 font-bold",
-        "text-white"
+        result.status === "incorrect" && "text-white"
       )}
     >
-      {`${
-        index === 0
-          ? result.text[0].toUpperCase() + result.text.slice(1)
-          : result.text
-      }\u00A0`}
+      {formatGuessWords(result.text, guessResults.length, index)}
     </span>
   ));
 };
