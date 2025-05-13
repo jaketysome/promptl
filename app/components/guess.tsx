@@ -2,11 +2,29 @@
 
 import { compareWords, extractWords } from "@/lib/utils";
 import { useCallback, useEffect, useState } from "react";
+import clsx from "clsx";
+
+const renderGuessResults = (guessResults: _WordComparison[]) => {
+  return guessResults.map((result, index) => (
+    <span
+      key={index}
+      className={clsx(
+        result.status === "correct" && "text-green-500 font-bold",
+        result.status === "partial" && "text-yellow-500 font-bold",
+        "text-white"
+      )}
+    >
+      {`${
+        index === 0
+          ? result.text[0].toUpperCase() + result.text.slice(1)
+          : result.text
+      }\u00A0`}
+    </span>
+  ));
+};
 
 const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
-  const [comparisonResults, setComparisonResults] = useState<_WordComparison[]>(
-    []
-  );
+  const [guessResults, setGuessResults] = useState<_WordComparison[]>([]);
 
   const checkGuess = useCallback(() => {
     if (!guess.body) return;
@@ -14,9 +32,7 @@ const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
     const guessWords = extractWords(guess.body);
     const promptWords = extractWords(prompt);
 
-    const comparisonResults = compareWords(guessWords, promptWords);
-
-    setComparisonResults(comparisonResults);
+    setGuessResults(compareWords(guessWords, promptWords));
   }, [guess.body, prompt]);
 
   useEffect(() => {
@@ -25,25 +41,7 @@ const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
 
   return (
     <div className='flex items-center justify-center w-full h-8 my-1 py-2 px-2 text-xs bg-slate-700'>
-      {comparisonResults.map((wordComparison, index) => (
-        <span
-          key={index}
-          className={`${
-            wordComparison.status === "correct"
-              ? "text-green-500 font-bold"
-              : wordComparison.status === "partial"
-              ? "text-yellow-500 font-bold"
-              : "text-white"
-          }`}
-        >
-          {`${
-            index === 0
-              ? wordComparison.text[0].toUpperCase() +
-                wordComparison.text.slice(1)
-              : wordComparison.text
-          }\u00A0`}
-        </span>
-      ))}
+      {renderGuessResults(guessResults)}
     </div>
   );
 };
