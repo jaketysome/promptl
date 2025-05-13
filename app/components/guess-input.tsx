@@ -12,8 +12,8 @@ const GuessInput = () => {
     setGuessCount,
     setGuessList,
     setRevealClue,
-    wordCount,
-    setWordCount,
+    guessWordCount,
+    setGuessWordCount,
   } = useGlobalStateContext();
 
   const [currentGuess, setCurrentGuess] = useState<string>("");
@@ -26,16 +26,16 @@ const GuessInput = () => {
     if (countWords(input) > promptLength) {
       return;
     }
-    if (wordCount === promptLength) {
+    if (guessWordCount === promptLength) {
       setIsValidGuess(true);
     }
-    setWordCount(countWords(input));
+    setGuessWordCount(countWords(input));
     setCurrentGuess(input);
   };
 
   const handleGuess = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (wordCount < promptLength) {
+    if (guessWordCount < promptLength) {
       return;
     }
     currentGuessList.forEach((guess) => {
@@ -48,14 +48,14 @@ const GuessInput = () => {
     });
     setGuessList(currentGuessList);
     setGuessCount(guessCount + 1);
-    setWordCount(0);
+    setGuessWordCount(0);
     setCurrentGuess("");
     setIsValidGuess(false);
   };
 
   const handleClear = () => {
     setCurrentGuess("");
-    setWordCount(0);
+    setGuessWordCount(0);
   };
 
   const handleClue = () => {

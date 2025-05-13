@@ -17,10 +17,10 @@ interface GlobalStateContext {
   setGuessList: Dispatch<SetStateAction<_Guess[]>>;
   guessCount: number;
   setGuessCount: Dispatch<SetStateAction<number>>;
+  guessWordCount: number;
+  setGuessWordCount: Dispatch<SetStateAction<number>>;
   revealClue: boolean;
   setRevealClue: Dispatch<SetStateAction<boolean>>;
-  wordCount: number;
-  setWordCount: Dispatch<SetStateAction<number>>;
 }
 
 const GlobalStateContext = createContext<GlobalStateContext>({
@@ -32,8 +32,8 @@ const GlobalStateContext = createContext<GlobalStateContext>({
   setGuessCount: () => {},
   revealClue: false,
   setRevealClue: () => {},
-  wordCount: 0,
-  setWordCount: () => {},
+  guessWordCount: 0,
+  setGuessWordCount: () => {},
 });
 
 const initialGuessList = [
@@ -56,8 +56,8 @@ export const GlobalStateContextProvider = ({
   const [imgUrl, setImgUrl] = useState("");
   const [guessList, setGuessList] = useState(initialGuessList);
   const [guessCount, setGuessCount] = useState(0);
+  const [guessWordCount, setGuessWordCount] = useState(0);
   const [revealClue, setRevealClue] = useState(false);
-  const [wordCount, setWordCount] = useState(0);
 
   const handleResponse = useCallback(() => {
     if (response.success) {
@@ -84,8 +84,8 @@ export const GlobalStateContextProvider = ({
         setGuessCount,
         revealClue,
         setRevealClue,
-        wordCount,
-        setWordCount,
+        guessWordCount,
+        setGuessWordCount,
       }}
     >
       {children}
