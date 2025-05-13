@@ -6,7 +6,7 @@ import GuessInput from "./guess-input";
 import GuessList from "./guess-list";
 import WordCounter from "./word-counter";
 
-const _TEST_RESPONSE = {
+const _TEST_RESPONSE: _OpenAIResponse = {
   success: true,
   body: {
     prompt: '"A spaceship landing on a vibrant alien planet."',
@@ -16,7 +16,7 @@ const _TEST_RESPONSE = {
 };
 
 async function GameContainer() {
-  const response = await generatePromptAndImage();
+  const response = _TEST_RESPONSE;
 
   if (!response.success) return null;
 
