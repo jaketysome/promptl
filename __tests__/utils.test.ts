@@ -1,4 +1,4 @@
-import { countWords, extractWords } from "@/lib/utils";
+import { countWords, extractWords, removePunctuation } from "@/lib/utils";
 
 describe('countWords', () => {
     it('should return 0 if passed an empty string', () => {
@@ -69,5 +69,37 @@ describe('extractWords', () => {
         expect(result1).toEqual(["my", "banana"]);
         expect(result2).toEqual(["my", "banana", "is", "long"]);
         expect(result3).toEqual(["my", "banana", "is", "long", "and", "yellow"]);
+    });
+
+    it('should remove any punctuation', () => {
+        const result1 = extractWords("My banana.");
+        const result2 = extractWords("my banana: is long!?");
+        const result3 = extractWords('"my banana is long, and yellow."');
+        const result4 = extractWords("!@£$%^&*(){}[]:;'|<>,.?/`~my banana is long and yellow with some black spots");
+        const result5 = extractWords("!my @£banana is$%^ lo&*ng (and y){}[ellow wi]:th some blac;'|<>,.?/k spots`~");
+
+        expect(result1).toEqual(["my", "banana"]);
+        expect(result2).toEqual(["my", "banana", "is", "long"]);
+        expect(result3).toEqual(["my", "banana", "is", "long", "and", "yellow"]);
+        expect(result4).toEqual(["my", "banana", "is", "long", "and", "yellow", "with", "some", "black", "spots"]);
+        expect(result5).toEqual(["my", "banana", "is", "long", "and", "yellow", "with", "some", "black", "spots"]);
+    });
+});
+
+describe('removePunctuation', () => {
+    it('should return an empty string if passed an empty string', () => {
+        const result = removePunctuation("");
+
+        expect(result).toEqual("");
+    });
+
+    it('should remove all punctuation from a string', () => {
+        const result1 = removePunctuation("BANANAS!@£$%^&*(){}[]:;'|<>,.?/`~");
+        const result2 = removePunctuation("I!@ £$%LO^&VE*(){ }[]:;BANA'|<>NAS,.?/`~");
+        const result3 = removePunctuation("!@A£$%P^&*(P){}[]L:;'|E<>,.?/`~S");
+
+        expect(result1).toEqual("BANANAS");
+        expect(result2).toEqual("I LOVE BANANAS");
+        expect(result3).toEqual("APPLES");
     });
 });

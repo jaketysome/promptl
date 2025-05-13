@@ -15,5 +15,11 @@ export function extractWords(str: string): string[] {
 
   const words = str.split(" ").filter((word) => word.length > 0);
 
-  return words.map((word) => word.toLowerCase());
+  return words.map((word) => removePunctuation(word.toLowerCase()));
+}
+
+export function removePunctuation(str: string) {
+  return str.split('').filter(char => {
+      return /[a-zA-Z0-9 ]/.test(char);
+  }).join('');
 }

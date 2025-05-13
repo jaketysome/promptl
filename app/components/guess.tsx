@@ -16,31 +16,15 @@ const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
     const guessWords = extractWords(guess.body);
     const promptWords = extractWords(prompt);
 
-    const formattedPromptWords = promptWords.map((word) => {
-      if (word[word.length - 1] === ".") {
-        word = word.slice(0, -1);
-      }
-
-      return word.toLowerCase();
-    });
-
-    const formattedGuessWords = guessWords.map((word) => {
-      if (word[word.length - 1] === ".") {
-        word = word.slice(0, -1);
-      }
-
-      return word.toLowerCase();
-    });
-
-    const comparisonResults = formattedGuessWords.map((word, index) => {
+    const comparisonResults = guessWords.map((word, index) => {
       const wordComparison = {
         text: word,
         status: "incorrect",
       };
 
-      if (word === formattedPromptWords[index]) {
+      if (word === promptWords[index]) {
         wordComparison.status = "correct";
-      } else if (formattedPromptWords.includes(word)) {
+      } else if (promptWords.includes(word)) {
         wordComparison.status = "partial";
       } else {
         wordComparison.status = "incorrect";
