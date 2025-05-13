@@ -1,5 +1,6 @@
 "use client";
 
+import { extractWords } from "@/lib/utils";
 import { useCallback, useEffect, useState } from "react";
 
 const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
@@ -11,8 +12,9 @@ const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
     if (!guess.body) {
       return;
     }
-    const guessWords = guess.body.split(" ");
-    const promptWords = prompt.split(" ");
+
+    const guessWords = extractWords(guess.body);
+    const promptWords = extractWords(prompt);
 
     const formattedPromptWords = promptWords.map((word) => {
       if (word[word.length - 1] === ".") {
