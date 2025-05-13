@@ -1,7 +1,4 @@
-type ResponseBody = {
-  prompt: string;
-  imgUrl: string;
-}
+type ResponseBody = Record<string, string>;
 
 type SuccessResponse = {
   success: true;
@@ -10,6 +7,7 @@ type SuccessResponse = {
 
 type ErrorResponse = {
   success: false;
+  msg: string;
 }
 
 type _OpenAIResponse = SuccessResponse | ErrorResponse;
