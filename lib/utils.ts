@@ -23,3 +23,19 @@ export function removePunctuation(str: string) {
       return /[a-zA-Z0-9 ]/.test(char);
   }).join('');
 }
+
+export function compareWords(guessWords: string[], promptWords: string[]): _WordComparison[] {
+  if (guessWords.length < 1 || promptWords.length < 1 ) return [];
+
+  return guessWords.map((guessWord, i) => {
+    const promptWord = promptWords[i];
+
+    if (guessWord === promptWord) {
+      return {text: guessWord, status: "correct"};
+    } else if (promptWords.includes(guessWord)) {
+      return {text: guessWord, status: "partial"}
+    } else {
+      return {text: guessWord, status: "incorrect"};
+    }
+  });
+}

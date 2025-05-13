@@ -1,4 +1,4 @@
-import { countWords, extractWords, removePunctuation } from "@/lib/utils";
+import { compareWords, countWords, extractWords, removePunctuation } from "@/lib/utils";
 
 describe('countWords', () => {
     it('should return 0 if passed an empty string', () => {
@@ -101,5 +101,69 @@ describe('removePunctuation', () => {
         expect(result1).toEqual("BANANAS");
         expect(result2).toEqual("I LOVE BANANAS");
         expect(result3).toEqual("APPLES");
+    });
+});
+
+describe('compareWords', () => {
+    const promptWords = ["a", "spaceship", "landing", "on", "a", "vibrant", "alien", "planet"];
+    const guessWords1 = ["some", "giant", "bees", "flying", "with", "scary", "green", "butterflies"];
+    const guessWords2 = ["the", "purple", "spaceship", "lands", "on", "a", "lovely", "planet"];
+
+    it('should return an empty array if guessWords or promptWords is empty', () => {
+        const result1 = compareWords(guessWords1, []);
+        const result2 = compareWords([], promptWords);
+        const result3 = compareWords([], []);
+
+        expect(result1).toEqual([]);
+        expect(result2).toEqual([]);
+        expect(result3).toEqual([]);
+    });
+
+    it('should return correct status for a single matching word in the correct position', () => {
+        const result = compareWords(["banana"], ["banana"]);
+
+        expect(result[0].text).toBe("banana");
+        expect(result[0].status).toBe("correct");
+    });
+
+    it('should return incorrect status for a single matching word in the correct position', () => {
+        const result = compareWords(["banana"], ["apple"]);
+
+        expect(result[0].text).toBe("banana");
+        expect(result[0].status).toBe("incorrect");
+    });
+
+    it('should return partial status for matching words in the wrong position', () => {
+        const result = compareWords(["a", "banana"], ["banana", "a"]);
+
+        expect(result[0].text).toBe("a");
+        expect(result[1].text).toBe("banana");
+        expect(result[0].status).toBe("partial");
+        expect(result[1].status).toBe("partial");
+    });
+
+    it('should return the correct staus for multiple words', () => {
+        const result1 = compareWords(guessWords1, promptWords);
+        const result2 = compareWords(guessWords2, promptWords);
+
+        expect(result1).toHaveLength(8);
+        expect(result1[0].text).toBe("some");
+        expect(result1[0].status).toBe("incorrect");
+        expect(result1[4].text).toBe("with");
+        expect(result1[4].status).toBe("incorrect");
+        expect(result1[7].text).toBe("butterflies");
+        expect(result1[7].status).toBe("incorrect");
+
+        expect(result2).toHaveLength(8);
+        expect(result2[0].text).toBe("the");
+        expect(result2[0].status).toBe("incorrect");
+        expect(result2[2].text).toBe("spaceship");
+        expect(result2[2].status).toBe("partial");
+        expect(result2[3].text).toBe("lands");
+        expect(result2[3].status).toBe("incorrect");
+        expect(result2[4].text).toBe("on");
+        expect(result2[4].status).toBe("partial");
+        expect(result2[7].text).toBe("planet");
+        expect(result2[7].status).toBe("correct");
     });
 });

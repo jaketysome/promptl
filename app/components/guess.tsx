@@ -1,6 +1,6 @@
 "use client";
 
-import { extractWords } from "@/lib/utils";
+import { compareWords, extractWords } from "@/lib/utils";
 import { useCallback, useEffect, useState } from "react";
 
 const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
@@ -9,29 +9,12 @@ const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
   );
 
   const checkGuess = useCallback(() => {
-    if (!guess.body) {
-      return;
-    }
+    if (!guess.body) return;
 
     const guessWords = extractWords(guess.body);
     const promptWords = extractWords(prompt);
 
-    const comparisonResults = guessWords.map((word, index) => {
-      const wordComparison = {
-        text: word,
-        status: "incorrect",
-      };
-
-      if (word === promptWords[index]) {
-        wordComparison.status = "correct";
-      } else if (promptWords.includes(word)) {
-        wordComparison.status = "partial";
-      } else {
-        wordComparison.status = "incorrect";
-      }
-
-      return wordComparison;
-    });
+    const comparisonResults = compareWords(guessWords, promptWords);
 
     setComparisonResults(comparisonResults);
   }, [guess.body, prompt]);

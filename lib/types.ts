@@ -19,5 +19,7 @@ type _Guess = {
 
 type _WordComparison = {
   text: string;
-  status: string;
+  status: WordComparisonStatus;
 }
+
+type WordComparisonStatus = "correct" | "partial" | "incorrect";
