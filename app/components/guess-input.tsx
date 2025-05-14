@@ -18,12 +18,14 @@ const GuessInput = () => {
 
   const [currentGuess, setCurrentGuess] = useState<string>("");
   const [isValidGuess, setIsValidGuess] = useState<boolean>(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const currentGuessList = [...guessList];
   const promptLength = prompt.split(" ").length;
 
   const handleInput = (input: string) => {
     if (countWords(input) > promptLength) {
+      setIsDisabled(true);
       return;
     }
     if (guessWordCount === promptLength) {
@@ -51,6 +53,7 @@ const GuessInput = () => {
     setGuessWordCount(0);
     setCurrentGuess("");
     setIsValidGuess(false);
+    setIsDisabled(false);
   };
 
   const handleClear = () => {
@@ -72,6 +75,7 @@ const GuessInput = () => {
         placeholder='Guess the prompt...'
         className='flex w-full h-8 my-1 p-1 text-center bg-white'
         value={currentGuess}
+        disabled={isDisabled}
         onChange={(event) => handleInput(event.target.value)}
       />
       <div className='flex w-full h-8 my-1 items-center justify-center'>
