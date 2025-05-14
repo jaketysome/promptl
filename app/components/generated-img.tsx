@@ -1,17 +1,11 @@
 import Image from "next/image";
 
-function GeneratedImage({
-  imgUrl,
-  prompt,
-}: {
-  imgUrl: string;
-  prompt: string;
-}) {
+function GeneratedImage({ imgUrl }: { imgUrl: string }) {
   return (
     <div>
       <Image
         src={imgUrl}
-        alt={prompt}
+        alt='AI Generated Image'
         priority
         width={512}
         height={512}
