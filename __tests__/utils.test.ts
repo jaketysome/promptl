@@ -330,7 +330,7 @@ describe("checkWinCondition", () => {
   });
 
   it("should return true if all guess results in an array have a status of correct", () => {
-    const guessResults: _WordComparison[] = [
+    const guessResults: GuessResult[] = [
       { text: "a", status: "correct" },
       { text: "bright", status: "correct" },
       { text: "green", status: "correct" },
@@ -344,7 +344,7 @@ describe("checkWinCondition", () => {
   });
 
   it("should return false if any guess results have a status that is not correct", () => {
-    const guessResults1: _WordComparison[] = [
+    const guessResults1: GuessResult[] = [
       { text: "a", status: "correct" },
       { text: "bright", status: "correct" },
       { text: "green", status: "correct" },
@@ -352,7 +352,7 @@ describe("checkWinCondition", () => {
       { text: "flying", status: "incorrect" },
     ];
 
-    const guessResults2: _WordComparison[] = [
+    const guessResults2: GuessResult[] = [
       { text: "a", status: "correct" },
       { text: "bright", status: "incorrect" },
       { text: "green", status: "partial" },

@@ -4,7 +4,7 @@ import { compareWords, extractWords, formatGuessWords } from "@/lib/utils";
 import { useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 
-const renderGuessResults = (guessResults: _WordComparison[]) => {
+const renderGuessResults = (guessResults: _GuessResult[]) => {
   return guessResults.map((result, index) => (
     <span
       key={index}
@@ -20,7 +20,7 @@ const renderGuessResults = (guessResults: _WordComparison[]) => {
 };
 
 const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
-  const [guessResults, setGuessResults] = useState<_WordComparison[]>([]);
+  const [guessResults, setGuessResults] = useState<_GuessResult[]>([]);
 
   const checkGuess = useCallback(() => {
     if (!guess.body) return;

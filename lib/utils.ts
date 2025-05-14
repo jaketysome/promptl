@@ -21,7 +21,7 @@ export function extractWords(str: string): string[] {
 export function compareWords(
   guessWords: string[],
   promptWords: string[]
-): _WordComparison[] {
+): _GuessResult[] {
   if (guessWords.length < 1 || promptWords.length < 1) return [];
 
   return guessWords.map((guessWord, i) => {
@@ -62,10 +62,10 @@ export function formatGuessWords(
   }
 }
 
-export function checkWinCondition(guessResults: _WordComparison[]) {
+export function checkWinCondition(guessResults: _GuessResult[]) {
   if (guessResults.length < 1) return false;
 
-  const isCorrect = (guessResult: _WordComparison) =>
+  const isCorrect = (guessResult: _GuessResult) =>
     guessResult.status === "correct";
 
   return guessResults.every(isCorrect);
