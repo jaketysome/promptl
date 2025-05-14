@@ -5,6 +5,7 @@ import GeneratedImage from "./generated-img";
 import GuessInput from "./guess-input";
 import GuessList from "./guess-list";
 import WordCounter from "./word-counter";
+import Notify from "./notify";
 
 const _TEST_RESPONSE: _OpenAIResponse = {
   success: true,
@@ -26,6 +27,7 @@ async function GameContainer() {
     <div className='flex flex-col w-full max-w-md h-full items-start justify-center border-1 border-slate-400'>
       <GeneratedImage {...{ imgUrl, prompt }} />
       <GlobalStateContextProvider response={response}>
+        <Notify />
         <Clue />
         <GuessList />
         <WordCounter />
