@@ -1,14 +1,14 @@
 export function countWords(str: string): number {
-    let count = 0;
-    const words = str.split(/\s+/);
-    words.forEach((word) => {
-      if (word !== "") {
-        count++;
-      }
-    });
-  
-    return count;
-  }
+  let count = 0;
+  const words = str.split(/\s+/);
+  words.forEach((word) => {
+    if (word !== "") {
+      count++;
+    }
+  });
+
+  return count;
+}
 
 export function extractWords(str: string): string[] {
   if (!str) return [];
@@ -18,36 +18,55 @@ export function extractWords(str: string): string[] {
   return words.map((word) => removePunctuation(word.toLowerCase()));
 }
 
-export function compareWords(guessWords: string[], promptWords: string[]): _WordComparison[] {
-  if (guessWords.length < 1 || promptWords.length < 1 ) return [];
+export function compareWords(
+  guessWords: string[],
+  promptWords: string[]
+): _WordComparison[] {
+  if (guessWords.length < 1 || promptWords.length < 1) return [];
 
   return guessWords.map((guessWord, i) => {
     const promptWord = promptWords[i];
 
     if (guessWord === promptWord) {
-      return {text: guessWord, status: "correct"};
+      return { text: guessWord, status: "correct" };
     } else if (promptWords.includes(guessWord)) {
-      return {text: guessWord, status: "partial"}
+      return { text: guessWord, status: "partial" };
     } else {
-      return {text: guessWord, status: "incorrect"};
+      return { text: guessWord, status: "incorrect" };
     }
   });
 }
 
 export function removePunctuation(str: string) {
-  return str.split('').filter(char => {
+  return str
+    .split("")
+    .filter((char) => {
       return /[a-zA-Z0-9 ]/.test(char);
-  }).join('');
+    })
+    .join("");
 }
 
-export function formatGuessWords(word: string, guessLength: number, index: number) {
+export function formatGuessWords(
+  word: string,
+  guessLength: number,
+  index: number
+) {
   if (!word) return "";
 
   const spacing = index === guessLength - 1 ? "" : "\u0020";
 
   if (index === 0) {
-    return `${word[0].toUpperCase() + word.slice(1)}${spacing}`
+    return `${word[0].toUpperCase() + word.slice(1)}${spacing}`;
   } else {
     return `${word}${spacing}`;
-  };
+  }
+}
+
+export function checkWinCondition(guessResults: _WordComparison[]) {
+  if (guessResults.length < 1) return false;
+
+  const isCorrect = (guessResult: _WordComparison) =>
+    guessResult.status === "correct";
+
+  return guessResults.every(isCorrect);
 }
