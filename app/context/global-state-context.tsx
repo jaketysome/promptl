@@ -15,6 +15,8 @@ interface GlobalStateContext {
   imgUrl: string;
   winCondition: boolean;
   setWinCondition: Dispatch<SetStateAction<boolean>>;
+  loseCondition: boolean;
+  setLoseCondition: Dispatch<SetStateAction<boolean>>;
   guessList: _Guess[];
   setGuessList: Dispatch<SetStateAction<_Guess[]>>;
   guessCount: number;
@@ -30,6 +32,8 @@ const GlobalStateContext = createContext<GlobalStateContext>({
   imgUrl: "",
   winCondition: false,
   setWinCondition: () => {},
+  loseCondition: false,
+  setLoseCondition: () => {},
   guessList: [],
   setGuessList: () => {},
   guessCount: 0,
@@ -59,6 +63,7 @@ export const GlobalStateContextProvider = ({
   const [prompt, setPrompt] = useState("");
   const [imgUrl, setImgUrl] = useState("");
   const [winCondition, setWinCondition] = useState(false);
+  const [loseCondition, setLoseCondition] = useState(false);
   const [guessList, setGuessList] = useState(initialGuessList);
   const [guessCount, setGuessCount] = useState(0);
   const [guessWordCount, setGuessWordCount] = useState(0);
@@ -85,6 +90,8 @@ export const GlobalStateContextProvider = ({
         imgUrl,
         winCondition,
         setWinCondition,
+        loseCondition,
+        setLoseCondition,
         guessList,
         setGuessList,
         guessCount,
