@@ -43,7 +43,7 @@ export function removePunctuation(str: string) {
 export function formatGuessWords(word: string, guessLength: number, index: number) {
   if (!word) return "";
 
-  const spacing = index === guessLength - 1 ? "" : "\u00A0";
+  const spacing = index === guessLength - 1 ? "" : "\u0020";
 
   if (index === 0) {
     return `${word[0].toUpperCase() + word.slice(1)}${spacing}`
