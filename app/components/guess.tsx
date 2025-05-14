@@ -35,7 +35,10 @@ const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
     const guessWords = extractWords(guess.body);
     const promptWords = extractWords(prompt);
 
-    setGuessResults(compareWords(guessWords, promptWords));
+    setGuessResults((prev) => [
+      ...prev,
+      ...compareWords(guessWords, promptWords),
+    ]);
   }, [guess.body, prompt]);
 
   useEffect(() => {
