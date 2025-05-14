@@ -10,7 +10,7 @@ const GuessList = () => {
 
   useEffect(() => {
     if (guessCount >= 6) setLoseCondition(true);
-  }, [guessCount]);
+  }, [guessCount, setLoseCondition]);
 
   return (
     <div className='flex flex-col items-center justify-start w-full h-full mt-4'>

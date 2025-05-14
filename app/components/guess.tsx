@@ -47,7 +47,7 @@ const Guess = ({ guess, prompt }: { guess: _Guess; prompt: string }) => {
 
   useEffect(() => {
     setWinCondition(checkWinCondition(guessResults));
-  }, [guessResults]);
+  }, [guessResults, setWinCondition]);
 
   return (
     <div className='flex items-center justify-center w-full h-8 my-1 py-2 px-2 text-xs bg-slate-700'>
