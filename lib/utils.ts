@@ -53,7 +53,7 @@ export function formatGuessWords(
 ) {
   if (!word) return "";
 
-  const spacing = index === guessLength - 1 ? "" : "\u0020";
+  const spacing = index === guessLength - 1 ? "" : "\u00A0";
 
   if (index === 0) {
     return `${word[0].toUpperCase() + word.slice(1)}${spacing}`;

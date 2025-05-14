@@ -288,7 +288,7 @@ describe("formatGuessWords", () => {
       1
     );
 
-    expect(result1).toBe("Hello ");
+    expect(result1).toBe("Hello\u00A0");
     expect(result2).toBe("sailor");
   });
 
@@ -309,7 +309,7 @@ describe("formatGuessWords", () => {
       1
     );
 
-    expect(result1).toBe("Hello ");
+    expect(result1).toBe("Hello\u00A0");
     expect(result2).toBe("sailor");
   });
 });
@@ -330,7 +330,7 @@ describe("checkWinCondition", () => {
   });
 
   it("should return true if all guess results in an array have a status of correct", () => {
-    const guessResults: GuessResult[] = [
+    const guessResults: _GuessResult[] = [
       { text: "a", status: "correct" },
       { text: "bright", status: "correct" },
       { text: "green", status: "correct" },
@@ -344,7 +344,7 @@ describe("checkWinCondition", () => {
   });
 
   it("should return false if any guess results have a status that is not correct", () => {
-    const guessResults1: GuessResult[] = [
+    const guessResults1: _GuessResult[] = [
       { text: "a", status: "correct" },
       { text: "bright", status: "correct" },
       { text: "green", status: "correct" },
@@ -352,7 +352,7 @@ describe("checkWinCondition", () => {
       { text: "flying", status: "incorrect" },
     ];
 
-    const guessResults2: GuessResult[] = [
+    const guessResults2: _GuessResult[] = [
       { text: "a", status: "correct" },
       { text: "bright", status: "incorrect" },
       { text: "green", status: "partial" },
