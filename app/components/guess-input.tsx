@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { countWords } from "@/lib/utils";
 import { useGlobalStateContext } from "../context/global-state-context";
+import { useEffect } from "react";
 
 const GuessInput = () => {
   const {
@@ -23,17 +24,15 @@ const GuessInput = () => {
   const currentGuessList = [...guessList];
   const promptLength = prompt.split(" ").length;
 
-  const handleInput = (input: string) => {
-    if (countWords(input) > promptLength) {
-      setIsDisabled(true);
-      return;
-    }
+  useEffect(() => {
+    setGuessWordCount(countWords(currentGuess));
+
     if (guessWordCount === promptLength) {
       setIsValidGuess(true);
+    } else {
+      setIsValidGuess(false);
     }
-    setGuessWordCount(countWords(input));
-    setCurrentGuess(input);
-  };
+  }, [currentGuess]);
 
   const handleGuess = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -59,6 +58,7 @@ const GuessInput = () => {
   const handleClear = () => {
     setCurrentGuess("");
     setGuessWordCount(0);
+    setIsDisabled(false);
   };
 
   const handleClue = () => {
@@ -76,7 +76,7 @@ const GuessInput = () => {
         className='flex w-full h-8 my-1 p-1 text-center bg-white'
         value={currentGuess}
         disabled={isDisabled}
-        onChange={(event) => handleInput(event.target.value)}
+        onChange={(e) => setCurrentGuess(e.target.value)}
       />
       <div className='flex w-full h-8 my-1 items-center justify-center'>
         <button
