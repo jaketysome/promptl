@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { countWords } from "@/lib/utils";
+import { countWords, updateGuessList } from "@/lib/utils";
 import { useGlobalStateContext } from "../context/global-state-context";
 import { useEffect } from "react";
 
@@ -21,7 +21,6 @@ const GuessInput = () => {
   const [isValidGuess, setIsValidGuess] = useState<boolean>(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const currentGuessList = [...guessList];
   const promptLength = prompt.split(" ").length;
 
   useEffect(() => {
@@ -38,13 +37,13 @@ const GuessInput = () => {
     event.preventDefault();
     if (guessWordCount < promptLength) return;
 
-    currentGuessList.forEach((guess) => {
-      if (guess.id === guessCount + 1) {
-        guess.body = currentGuess;
-      }
-    });
+    const updatedGuessList = updateGuessList(
+      guessCount,
+      currentGuess,
+      guessList
+    );
 
-    setGuessList(currentGuessList);
+    setGuessList(updatedGuessList);
     setGuessCount(guessCount + 1);
     setGuessWordCount(0);
     setCurrentGuess("");

@@ -62,3 +62,19 @@ export function checkWinCondition(guessResults: _GuessResult[]) {
 
   return guessResults.every(isCorrect);
 }
+
+export function updateGuessList(
+  guessCount: number,
+  currentGuess: string,
+  guessList: _Guess[]
+): _Guess[] {
+  if (guessList.length < 1) return [];
+
+  const guessListCopy = guessList.map((guess) => ({ ...guess }));
+
+  guessListCopy.forEach((guess) => {
+    if (guess.id === guessCount + 1) guess.body = currentGuess;
+  });
+
+  return guessListCopy;
+}

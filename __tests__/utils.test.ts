@@ -5,6 +5,7 @@ import {
   extractWords,
   removePunctuation,
   checkWinCondition,
+  updateGuessList,
 } from "@/lib/utils";
 
 describe("countWords", () => {
@@ -365,5 +366,87 @@ describe("checkWinCondition", () => {
 
     expect(result1).toBe(false);
     expect(result2).toBe(false);
+  });
+});
+
+describe("updateGuessList", () => {
+  it("should return an empty array if passed an empty array", () => {
+    const result = updateGuessList(0, "", []);
+
+    expect(result).toEqual([]);
+  });
+
+  it("should add the current guess to the next guess in the list", () => {
+    const initialGuessList = [
+      { id: 6 },
+      { id: 5 },
+      { id: 4 },
+      { id: 3 },
+      { id: 2 },
+      { id: 1 },
+    ];
+
+    let guessCount = 0;
+
+    // guess 1
+    const updatedList1 = updateGuessList(
+      guessCount,
+      "A brown dog",
+      initialGuessList
+    );
+    guessCount++;
+
+    expect(updatedList1[5].id).toBe(1);
+    expect(updatedList1[5].body).toBe("A brown dog");
+
+    // guess 2
+    const updatedList2 = updateGuessList(
+      guessCount,
+      "A brown dog jumping",
+      updatedList1
+    );
+    guessCount++;
+
+    expect(updatedList2[5].id).toBe(1);
+    expect(updatedList2[5].body).toBe("A brown dog");
+    expect(updatedList2[4].id).toBe(2);
+    expect(updatedList2[4].body).toBe("A brown dog jumping");
+
+    // guess 3
+    const updatedList3 = updateGuessList(
+      guessCount,
+      "A brown dog jumping high",
+      updatedList2
+    );
+    guessCount++;
+
+    expect(updatedList3[5].id).toBe(1);
+    expect(updatedList3[5].body).toBe("A brown dog");
+    expect(updatedList3[4].id).toBe(2);
+    expect(updatedList3[4].body).toBe("A brown dog jumping");
+    expect(updatedList3[3].id).toBe(3);
+    expect(updatedList3[3].body).toBe("A brown dog jumping high");
+  });
+
+  it("should not mutate the original guessList array", () => {
+    const guessList = [
+      { id: 6 },
+      { id: 5 },
+      { id: 4 },
+      { id: 3 },
+      { id: 2 },
+      { id: 1 },
+    ];
+
+    updateGuessList(0, "A purple skink", guessList);
+
+    expect(guessList).toEqual([
+      { id: 6 },
+      { id: 5 },
+      { id: 4 },
+      { id: 3 },
+      { id: 2 },
+      { id: 1 },
+    ]);
   });
 });
