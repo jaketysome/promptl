@@ -2,7 +2,7 @@ import { generatePromptAndImage } from "@/lib/openai";
 import { GlobalStateContextProvider } from "../context/global-state-context";
 import Clue from "./clue";
 import GeneratedImage from "./generated-img";
-import GuessInput from "./guess-input";
+import GuessControls from "./guess-controls";
 import GuessList from "./guess-list";
 import WordCounter from "./word-counter";
 import Notify from "./notify";
@@ -31,7 +31,7 @@ async function GameContainer() {
         <Clue />
         <GuessList />
         <WordCounter />
-        <GuessInput />
+        <GuessControls />
       </GlobalStateContextProvider>
     </div>
   );
