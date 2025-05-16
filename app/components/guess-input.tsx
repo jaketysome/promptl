@@ -36,17 +36,14 @@ const GuessInput = () => {
 
   const handleGuess = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (guessWordCount < promptLength) {
-      return;
-    }
+    if (guessWordCount < promptLength) return;
+
     currentGuessList.forEach((guess) => {
       if (guess.id === guessCount + 1) {
-        guess.body =
-          currentGuess.trim()[0].toUpperCase() +
-          currentGuess.trim().slice(1) +
-          ".";
+        guess.body = currentGuess;
       }
     });
+
     setGuessList(currentGuessList);
     setGuessCount(guessCount + 1);
     setGuessWordCount(0);
