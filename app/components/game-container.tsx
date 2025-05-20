@@ -21,8 +21,7 @@ async function GameContainer() {
     process.env.VERCEL_ENV !== "production" &&
     process.env.NODE_ENV !== "production";
 
-  console.log("is dev? ", isDev);
-  const response = _TEST_RESPONSE;
+  const response = isDev ? _TEST_RESPONSE : await generatePromptAndImage();
 
   if (!response.success) return null;
 
