@@ -17,6 +17,11 @@ const _TEST_RESPONSE: _OpenAIResponse = {
 };
 
 async function GameContainer() {
+  const isDev =
+    process.env.VERCEL_ENV !== "production" &&
+    process.env.NODE_ENV !== "production";
+
+  console.log("is dev? ", isDev);
   const response = _TEST_RESPONSE;
 
   if (!response.success) return null;
