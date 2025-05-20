@@ -13,27 +13,35 @@ import {
 interface GlobalStateContext {
   prompt: string;
   imgUrl: string;
+  winCondition: boolean;
+  setWinCondition: Dispatch<SetStateAction<boolean>>;
+  loseCondition: boolean;
+  setLoseCondition: Dispatch<SetStateAction<boolean>>;
   guessList: _Guess[];
   setGuessList: Dispatch<SetStateAction<_Guess[]>>;
   guessCount: number;
   setGuessCount: Dispatch<SetStateAction<number>>;
+  guessWordCount: number;
+  setGuessWordCount: Dispatch<SetStateAction<number>>;
   revealClue: boolean;
   setRevealClue: Dispatch<SetStateAction<boolean>>;
-  wordCount: number;
-  setWordCount: Dispatch<SetStateAction<number>>;
 }
 
 const GlobalStateContext = createContext<GlobalStateContext>({
   prompt: "",
   imgUrl: "",
+  winCondition: false,
+  setWinCondition: () => {},
+  loseCondition: false,
+  setLoseCondition: () => {},
   guessList: [],
   setGuessList: () => {},
   guessCount: 0,
   setGuessCount: () => {},
   revealClue: false,
   setRevealClue: () => {},
-  wordCount: 0,
-  setWordCount: () => {},
+  guessWordCount: 0,
+  setGuessWordCount: () => {},
 });
 
 const initialGuessList = [
@@ -54,10 +62,12 @@ export const GlobalStateContextProvider = ({
 }) => {
   const [prompt, setPrompt] = useState("");
   const [imgUrl, setImgUrl] = useState("");
+  const [winCondition, setWinCondition] = useState(false);
+  const [loseCondition, setLoseCondition] = useState(false);
   const [guessList, setGuessList] = useState(initialGuessList);
   const [guessCount, setGuessCount] = useState(0);
+  const [guessWordCount, setGuessWordCount] = useState(0);
   const [revealClue, setRevealClue] = useState(false);
-  const [wordCount, setWordCount] = useState(0);
 
   const handleResponse = useCallback(() => {
     if (response.success) {
@@ -78,14 +88,18 @@ export const GlobalStateContextProvider = ({
       value={{
         prompt,
         imgUrl,
+        winCondition,
+        setWinCondition,
+        loseCondition,
+        setLoseCondition,
         guessList,
         setGuessList,
         guessCount,
         setGuessCount,
         revealClue,
         setRevealClue,
-        wordCount,
-        setWordCount,
+        guessWordCount,
+        setGuessWordCount,
       }}
     >
       {children}

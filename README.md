@@ -27,7 +27,9 @@ Play now: https://promptl-nine.vercel.app/
 - Built-in global state context to manage game state cleanly across components
 - Plans for:
   - ✅ Win and lose messages
-  - ✅ Server-side prompt/image regeneration
+  - ✅ Score system
+  - ✅ User Profile & Score tracking
+  - ✅ New image each day
   - 🚧 More polish as development continues
 
 ---

@@ -7,7 +7,11 @@ const IMG_SIZE = "512x512";
 const STARTING_PROMPT = "Generate a random image prompt for Dall-E. The prompt should be a short sentence describing an image. For example, 'a painting of a cat sitting on a chair' or 'a photo of a baby panda'. The prompt should be no longer than 10 words."
 
 export async function generatePromptAndImage(): Promise<_OpenAIResponse> {
-  const prompt = await generateImagePrompt();
+  const res = await generateImagePrompt();
+
+  if (!res.success) return { success: false, msg: "Error generating image: no valid prompt" }
+
+  const prompt = res.body.prompt;
 
   const response = await client.images.generate({
     model: IMG_MODEL,
@@ -16,18 +20,24 @@ export async function generatePromptAndImage(): Promise<_OpenAIResponse> {
     size: IMG_SIZE,
   });
 
+  if (!response.data) return { success: false, msg: "Error generating image: no response data" };
+
   const imgUrl = response.data[0].url;
 
-  if (!imgUrl) return { success: false };
+  if (!imgUrl) return { success: false, msg: "Error generating image: no valid img url" };
 
   return {success: true, body: {prompt, imgUrl}};
 }
 
-async function generateImagePrompt() {
+async function generateImagePrompt(): Promise<_OpenAIResponse> {
   const response = await client.responses.create({
     model: TEXT_MODEL,
     input: STARTING_PROMPT,
   });
+
+  if (!response) return {success: false, msg: "Error generating prompt: no response from openAI"}
+
+  const prompt = response.output_text;
   
-  return response.output_text;
+  return {success: true, body: {prompt}};
 }
