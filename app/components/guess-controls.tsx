@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { countWords, updateGuessList } from "@/lib/utils";
 import { useGlobalStateContext } from "../context/global-state-context";
-import { useEffect } from "react";
 import GuessInput from "./guess-input";
 
 const GuessControls = () => {
@@ -20,7 +19,6 @@ const GuessControls = () => {
 
   const [currentGuess, setCurrentGuess] = useState<string>("");
   const [isValidGuess, setIsValidGuess] = useState<boolean>(false);
-  const [isDisabled, setIsDisabled] = useState(false);
 
   const promptLength = prompt.split(" ").length;
 
@@ -32,7 +30,7 @@ const GuessControls = () => {
     } else {
       setIsValidGuess(false);
     }
-  }, [currentGuess]);
+  }, [currentGuess, guessWordCount, promptLength, setGuessWordCount]);
 
   const handleGuess = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,13 +47,11 @@ const GuessControls = () => {
     setGuessWordCount(0);
     setCurrentGuess("");
     setIsValidGuess(false);
-    setIsDisabled(false);
   };
 
   const handleClear = () => {
     setCurrentGuess("");
     setGuessWordCount(0);
-    setIsDisabled(false);
   };
 
   const handleClue = () => {
@@ -67,7 +63,7 @@ const GuessControls = () => {
       onSubmit={handleGuess}
       className='flex flex-col w-full h-full text-xs text-black'
     >
-      <GuessInput {...{ isDisabled, currentGuess, setCurrentGuess }} />
+      <GuessInput {...{ currentGuess, setCurrentGuess }} />
       <div className='flex w-full h-8 my-1 items-center justify-center'>
         <button
           type='button'
