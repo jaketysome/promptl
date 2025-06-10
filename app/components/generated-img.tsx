@@ -1,10 +1,10 @@
 import Image from "next/image";
 
-function GeneratedImage({ imgUrl }: { imgUrl: string }) {
+function GeneratedImage({ imgPath }: { imgPath: string }) {
   return (
     <div>
       <Image
-        src={imgUrl}
+        src={imgPath}
         alt='AI Generated Image'
         priority
         width={512}
