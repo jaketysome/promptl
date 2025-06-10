@@ -10,9 +10,9 @@ import Notify from "./notify";
 const _TEST_RESPONSE: _OpenAIResponse = {
   success: true,
   body: {
-    prompt: '"A spaceship landing on a vibrant alien planet."',
+    prompt: "A futuristic city skyline at sunset.",
     imgUrl:
-      "https://oaidalleapiprodscus.blob.core.windows.net/private/org-rVsgDY5zjFseSqZ7HmQ7ldmu/user-K7D0m5jE4sTUxVLtOW6rlEwH/img-3u0RXITopuJjMZSFlnfeyh6C.png?st=2025-04-11T09%3A29%3A20Z&se=2025-04-11T11%3A29%3A20Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-10T20%3A40%3A16Z&ske=2025-04-11T20%3A40%3A16Z&sks=b&skv=2024-08-04&sig=xWXmHTQZlvOVhh/gnTcf8cOyxJ9LUVWXZ1XKr8xaLXg%3D",
+      "https://oaidalleapiprodscus.blob.core.windows.net/private/org-rVsgDY5zjFseSqZ7HmQ7ldmu/user-K7D0m5jE4sTUxVLtOW6rlEwH/img-t9nD4j5RnPK22cPGXl7dcGxi.png?st=2025-06-10T10%3A26%3A48Z&se=2025-06-10T12%3A26%3A48Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=475fd488-6c59-44a5-9aa9-31c4db451bea&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-06-10T10%3A45%3A07Z&ske=2025-06-11T10%3A45%3A07Z&sks=b&skv=2024-08-04&sig=VbWKjaRdjMlQa5l7%2B8UbiQBJI1uYZk6bos7FX2p5m%2B4%3D",
   },
 };
 
@@ -25,11 +25,11 @@ async function GameContainer() {
 
   if (!response.success) return null;
 
-  const { imgUrl, prompt } = response.body;
+  const { imgPath, prompt } = response.body;
 
   return (
     <div className='flex flex-col w-full max-w-md h-full items-start justify-center border-1 border-slate-400'>
-      <GeneratedImage {...{ imgUrl, prompt }} />
+      <GeneratedImage {...{ imgPath, prompt }} />
       <GlobalStateContextProvider response={response}>
         <Notify />
         <Clue />
